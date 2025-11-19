@@ -109,6 +109,9 @@ async def max_connect():
                 if messages:
                     last_message = messages[-1]
                     current_msg_id = str(last_message.get("id", ""))
+
+                    if last_message.get("link") and last_message["link"]["type"] == "FORWARD":
+                        last_message = last_message["link"]["message"]
                     
                     if current_msg_id != last_message_id:
                         logging.info(f"New message detected! ID: {current_msg_id}")
@@ -118,6 +121,7 @@ async def max_connect():
                         last_message_id = current_msg_id
                         
                         client = AsyncClient(base_url=f"https://api.telegram.org/bot{os.getenv('TG_TOKEN')}")
+
                         if last_message.get("text"):
                             await client.post("/sendMessage", json={
                                 "chat_id": os.getenv("TG_CHAT_ID"),
