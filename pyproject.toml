@@ -1,7 +1,7 @@
 [project]
 name = "max-resend"
-version = "0.1.0"
-description = "Add your description here"
+version = "1.0.0"
+description = "simple script for resend messages from max to telegram chat"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
