@@ -39,7 +39,7 @@ async def max_connect():
 
     async with connect(
         url,
-        user_agent_header="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+        user_agent_header=os.getenv("MAX_USER_AGENT"),
         origin=Origin("https://web.max.ru"),
     ) as ws:
         initial_session_request = BaseMaxApiModel(
