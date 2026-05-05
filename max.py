@@ -1,6 +1,5 @@
-from datetime import datetime
 from typing import Any
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 
 class BaseMaxApiModel(BaseModel):
@@ -43,18 +42,3 @@ class MaxAuthTokenRequest(BaseMaxApiModel):
     opcode: int = 19
     ver: int = 11
     payload: MaxTokenData
-
-
-class MaxGetMessagesRequestPayload(BaseModel):
-    chatId: int
-    from_: int = Field(alias="from", default_factory=lambda: int(datetime.now().timestamp()*1000))
-    forward: int
-    backward: int
-    getMessages: bool
-
-
-class MaxGetMessagesRequest(BaseMaxApiModel):
-    ver: int = 11
-    cmd: int = 0
-    opcode: int = 49
-    payload: MaxGetMessagesRequestPayload
