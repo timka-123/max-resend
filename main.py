@@ -23,16 +23,18 @@ async def forward_to_telegram(message: dict, tg: AsyncClient) -> None:
     chat_id = os.getenv("TG_CHAT_ID")
     text = message.get("text")
     if text:
-        await tg.post("/sendMessage", json={
+        resp = await tg.post("/sendMessage", json={
             "chat_id": chat_id,
             "text": f"<blockquote>{text}</blockquote>",
             "parse_mode": "html",
         })
+        logging.info(f"Received text: {resp.text}")
     for attach in message.get("attaches", []):
-        await tg.post("/sendPhoto", json={
+        resp = await tg.post("/sendPhoto", json={
             "chat_id": chat_id,
             "photo": attach["baseUrl"],
         })
+        logging.info(f"Received text: {resp.text}")
 
 
 async def run_forever() -> None:
